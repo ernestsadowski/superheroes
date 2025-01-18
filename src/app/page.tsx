@@ -1,9 +1,9 @@
-import Image from "next/image";
 import { fetchSuperheroes } from '@/api/superheroAPI';
+import HeroCard from "@/components/HeroCard/HeroCard";
 
 export default async function Home() {
   const superheroes = await fetchSuperheroes();
-  console.log(superheroes);
+  // console.log(superheroes);
 
   return (
     <div className="py-24 sm:py-32">
@@ -15,25 +15,13 @@ export default async function Home() {
         >
           {superheroes.map((superhero) => (
             <li key={superhero.id}>
-              <Image
-                src={superhero.images.sm}
-                alt={superhero.name}
-                width={100}
-                height={100}
-                className="aspect-[2/3] w-full rounded-2xl object-cover"
+              <HeroCard
+                id={superhero.id}
+                name={superhero.name}
+                aliases={superhero.biography.aliases.join(", ")}
+                powerstats={superhero.powerstats}
+                image={superhero.images.sm}
               />
-              <h3 className="mt-6 text-lg/8 font-semibold tracking-tight">{superhero.name}</h3>
-              <p className="text-base/7 text-gray-800">{superhero.biography.aliases.join(', ')}</p>
-              <ul
-                role="list"
-                className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2"
-              >
-                {Object.entries(superhero.powerstats).map(([key, value]) => (
-                  <li key={key} className="text-sm/6 text-gray-500">
-                    <span className="font-semibold">{key}</span>: {value}
-                  </li>
-                ))}
-              </ul>
             </li>
           ))}
         </ul>
