@@ -3,7 +3,6 @@ import HeroCard from "@/components/HeroCard/HeroCard";
 
 export default async function Home() {
   const superheroes = await fetchSuperheroes();
-  // console.log(superheroes);
 
   return (
     <div className="py-24 sm:py-32">

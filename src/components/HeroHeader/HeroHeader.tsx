@@ -1,9 +1,7 @@
-"use client"
-
 import Image from "next/image";
 import s from './HeroHeader.module.css';
 import { cn } from "@/lib/utils";
-import { useFavoriteStore } from "@/store/favoriteStore";
+import FavButton from "@ui/FavButton";
 
 type HeroHeaderProps = {
   superhero: {
@@ -17,9 +15,6 @@ type HeroHeaderProps = {
 }
 
 export default function HeroHeader({ superhero, className }: HeroHeaderProps) {
-  const { addToFavorite, removeFromFavorite, isFavorite } = useFavoriteStore();
-  const { id } = superhero;
-
   return (
     <div className={cn(s.root, className)}>
       <div className="flex-1 mb-12">
@@ -33,22 +28,7 @@ export default function HeroHeader({ superhero, className }: HeroHeaderProps) {
       </div>
       <div className="flex-[2]">
 
-        {isFavorite(id)
-          ? <button
-            onClick={() => removeFromFavorite(id)}
-            type="button"
-            className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-          >
-            Remove from favorite
-          </button>
-          : <button
-            onClick={() => addToFavorite(superhero)}
-            type="button"
-            className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-          >
-            Add to favorite
-          </button>
-        }
+        <FavButton superhero={superhero} />
 
         <h1 className={s.name}>{superhero.name}</h1>
         <ul
