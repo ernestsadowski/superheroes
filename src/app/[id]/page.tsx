@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { fetchSuperheroById } from '@/api/superheroAPI';
+import HeroHeader from "@/components/HeroHeader";
 
 type PageProps = Promise<{
 	id: number;
@@ -8,38 +8,21 @@ type PageProps = Promise<{
 export default async function Page(props: { params: PageProps }) {
 	const { id } = await props.params;
 	const superhero = await fetchSuperheroById(id);
-	// console.log(superhero);
 
 	return (
-		<>
-			<div className="py-24 sm:py-32">
-				<div className="mx-auto max-w-7xl px-6 lg:px-8">
+		<div className="divide-y divide-gray-200">
+			<HeroHeader superhero={
+				{
+					id: superhero.id,
+					name: superhero.name,
+					aliases: superhero.biography.aliases.join(", "),
+					powerstats: superhero.powerstats,
+					image: superhero.images.lg
+				}
+			} />
 
-					{/* HeroHeader */}
-					<div className="lg:flex gap-12">
-						<div className="flex-1 mb-12">
-							<Image
-								src={superhero.images.lg}
-								alt={superhero.name}
-								width={100}
-								height={100}
-								className="aspect-[2/3] w-full rounded-2xl object-cover"
-							/>
-						</div>
-						<div className="flex-[2]">
-							<h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{superhero.name}</h1>
-							<ul
-								role="list"
-								className="mt-10 grid md:grid-cols-2 gap-x-4 gap-y-4"
-							>
-								{Object.entries(superhero.powerstats).map(([key, value]) => (
-									<li key={key} className="text-xl">
-										<span className="font-semibold uppercase">{key}</span>: {value}
-									</li>
-								))}
-							</ul>
-						</div>
-					</div>
+			<div className="py-24 sm:py-32">
+				<div className="container mx-auto">
 
 					{/* HeroDetails - Appearance */}
 					<section className="mt-12">
@@ -115,6 +98,6 @@ export default async function Page(props: { params: PageProps }) {
 			</div>
 
 
-		</>
+		</div>
 	);
 }
