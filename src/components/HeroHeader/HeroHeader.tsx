@@ -27,9 +27,7 @@ export default function HeroHeader({ superhero, className }: HeroHeaderProps) {
         />
       </div>
       <div className="flex-[2]">
-
         <FavButton superhero={superhero} />
-
         <h1 className={s.name}>{superhero.name}</h1>
         <ul
           role="list"
