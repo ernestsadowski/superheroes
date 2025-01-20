@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import s from './Navbar.module.css';
 import { cn } from "@/lib/utils";
+import Search from '@ui/Search';
+import { Suspense } from 'react';
 
 type NavbarProps = {
   className?: string;
@@ -20,10 +22,13 @@ export default function Navbar({ className }: NavbarProps) {
             Home
           </Link>
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        <div className="hidden gap-6 lg:flex lg:flex-1 lg:justify-end">
           <Link href="/favorite" className="text-sm/6 font-semibold text-gray-900">
             Favorite <span aria-hidden="true">&hearts;</span>
           </Link>
+          <Suspense>
+            <Search />
+          </Suspense>
         </div>
       </nav>
     </header>
